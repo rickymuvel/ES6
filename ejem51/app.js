@@ -1,19 +1,21 @@
 // Promesas, problemática y su necesidad:
 
 function tareaAsincrona() {
-	setTimeout(function(){
-		console.log( "Proceso asincrono terminado" );
-		reject();
-	}, 1300);
+	
+	let promesa = new Promise( function(resolve, reject ){
+		setTimeout(function(){
+			console.log( "Proceso asincrono terminado" );
+			resolve();
+		}, 1300);
+	});
+
+	return promesa;
 }
 
-tareaAsincrona();
-console.log( "Codigo secuencial" );
-
-function resolve(){
+tareaAsincrona().then( function(){
 	console.log( "Todo ok" );
-}
+}, function(){
+	console.error( "Todo mal" );
+});
 
-function reject(){
-	console.log( "Todo mal" );
-}
+// El reject es opcional
